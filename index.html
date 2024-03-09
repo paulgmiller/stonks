@@ -24,12 +24,16 @@
             "Because the cabal of illuminati does not want you to be happy.",
         ];
 
-        // Use the day of the month as the seed for randomness
-        const randomSeed = new Date().getDate();
+        //Set a couple large primes to assist with deterministic psuedo random number generation
+        const biggishPrime1 = 5717;
+        const biggishPrime2 = 7917;
 
-        // Generate a deterministic random index
-        const randomIndex = randomSeed % stockMarketReasons.length;
+        // A deterministic psuedorandom number between 0 and 1 using date in YYYYMMDD format as the seed
+        const psuedoRandom = parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, "")) * biggishPrime1 % biggishPrime2 / biggishPrime2;
 
+        // Generate a deterministic kind of random index
+        const randomIndex = Math.floor(psuedoRandom * stockMarketReasons.length);
+        
         // Get the corresponding reason
         const randomReason = stockMarketReasons[randomIndex];
 
