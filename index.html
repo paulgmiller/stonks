@@ -25,6 +25,7 @@
     <script>
         // Define an array of possible strings
         const stockMarketReasons = [
+            "Because an orange baboon wrecked international trade",
             "Because everyone sold their stocks to buy crypto (which was then stolen)",
             "Because Janet Yellen is pissed",
             "Because wall street figured out how to break index funds",
@@ -32,22 +33,26 @@
             "Because something blew up in the middle east",
             "Because maybe really high tariffs won't make things better",
             "Because Brad Sullivan quit and now things are falling apart",
-            "Because an orange baboon wrecked international trade",
-            'Because <a href="https://x.com/i/status/1820355555288056314">hedge funds are unwinding yen carry trades</a>',
+            'Because <a href="https://x.com/i/status/1820355555288056314">hedge funds are unwinding yen carry trades</a>',            
         ];
 
         //Set a couple large primes to assist with deterministic psuedo random number generation
         const biggishPrime1 = 5717;
         const biggishPrime2 = 7917;
-
+        today = new Date().toISOString()
         // A deterministic psuedorandom number between 0 and 1 using date in YYYYMMDD format as the seed
-        const psuedoRandom = parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, "")) * biggishPrime1 % biggishPrime2 / biggishPrime2;
+        const psuedoRandom = parseInt(today.slice(0, 10).replace(/-/g, "")) * biggishPrime1 % biggishPrime2 / biggishPrime2;
 
         // Generate a deterministic kind of random index
         const randomIndex = Math.floor(psuedoRandom * stockMarketReasons.length);
         
         // Get the corresponding reason
-        const randomReason = stockMarketReasons[randomIndex];
+        randomReason = stockMarketReasons[randomIndex];
+
+        //sometimes the answer is clear.
+        if (today.startsWith("2025-04-03")) {
+            randomReason = stockMarketReasons[0]
+        }
 
         // Insert the random reason into the div
         document.addEventListener("DOMContentLoaded", function() {
